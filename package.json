@@ -1,0 +1,8 @@
+{
+  "name": "entresteph-monthly",
+  "version": "1.0.0",
+  "dependencies": {
+    "nodemailer": "^6.9.9",
+    "stripe": "^14.21.0"
+  }
+}
