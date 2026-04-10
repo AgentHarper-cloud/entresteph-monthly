@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Machine Monthly — Entre_Steph</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #080808;
+      --red:      #C8230F;
+      --red-dark: #A01B0B;
+      --gold:     #C9A84C;
+      --gold-lt:  #E2C46A;
+      --white:    #FFFFFF;
+      --gray:     #1A1A1A;
+      --gray-lt:  #242424;
+      --muted:    #888888;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid #1E1E1E;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .nav-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      background: rgba(200, 35, 15, 0.12);
+      border: 1px solid rgba(200, 35, 15, 0.3);
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 24px 48px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(201, 168, 76, 0.12);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 9vw, 58px);
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      margin-bottom: 22px;
+    }
+    .hero h1 .red  { color: var(--red); }
+    .hero h1 .gold { color: var(--gold); }
+
+    .hero-sub {
+      font-size: clamp(15px, 4vw, 18px);
+      color: #AAAAAA;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-sub strong { color: var(--white); font-weight: 600; }
+
+    /* ── PRICE CALLOUT ── */
+    .price-hero {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .price-hero .amount {
+      font-size: clamp(54px, 14vw, 80px);
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .price-hero .sup {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 800;
+      color: var(--gold);
+      align-self: flex-start;
+      margin-top: 10px;
+    }
+    .price-hero .period {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--muted);
+      align-self: flex-end;
+      padding-bottom: 8px;
+    }
+    .price-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      padding: 18px 40px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.18s ease, transform 0.12s ease;
+      width: 100%;
+      max-width: 420px;
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--gold);
+      border: 1.5px solid var(--gold);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.18s ease;
+      width: 100%;
+      max-width: 420px;
+    }
+    .btn-secondary:hover { background: rgba(201,168,76,0.08); }
+
+    .cta-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .cancel-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      max-width: 680px;
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid #1E1E1E;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 56px 24px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+    .section h2 {
+      font-size: clamp(24px, 6vw, 36px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 36px;
+    }
+    .section h2 .gold { color: var(--gold); }
+
+    /* ── DELIVERABLES ── */
+    .deliverables {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+    .deliverable {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: var(--gray);
+      border: 1px solid #2A2A2A;
+      border-radius: 12px;
+      padding: 22px 20px;
+    }
+    .deliverable-num {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      min-width: 56px;
+    }
+    .deliverable h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .deliverable p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── SCHEDULING CALLOUT ── */
+    .scheduling-callout {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      background: rgba(200, 35, 15, 0.07);
+      border: 1px solid rgba(200, 35, 15, 0.25);
+      border-radius: 12px;
+      padding: 24px 20px;
+    }
+    .scheduling-icon {
+      font-size: 28px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .scheduling-callout h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .scheduling-callout p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+    }
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--red);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .step p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── OBJECTIONS ── */
+    .objections {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .objection {
+      border-left: 3px solid var(--gold);
+      padding-left: 18px;
+    }
+    .objection h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+    .objection p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── PRICE BLOCK ── */
+    .price-block {
+      background: var(--gray);
+      border: 1px solid #2A2A2A;
+      border-radius: 16px;
+      padding: 40px 28px;
+      text-align: center;
+    }
+    .price-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .price-big {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .price-big .sup { font-size: 28px; font-weight: 900; color: var(--gold); align-self: flex-start; margin-top: 8px; }
+    .price-big .amount { font-size: 72px; font-weight: 900; color: var(--gold); letter-spacing: -0.03em; line-height: 1; }
+    .price-big .period { font-size: 18px; font-weight: 600; color: var(--muted); align-self: flex-end; padding-bottom: 10px; }
+    .price-per {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .price-includes {
+      list-style: none;
+      text-align: left;
+      margin: 0 auto 32px;
+      max-width: 340px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .price-includes li {
+      font-size: 14px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .price-includes li::before {
+      content: '✓';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .price-cancel {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      text-align: center;
+      border-top: 1px solid #1E1E1E;
+    }
+    .footer p {
+      font-size: 12px;
+      color: #444;
+      line-height: 1.7;
+    }
+    .footer .logo {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    /* ── MOBILE TWEAKS ── */
+    @media (max-width: 480px) {
+      .scheduling-callout { flex-direction: column; gap: 12px; }
+      .price-block { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav">
+      <span class="nav-logo">Entre_Steph</span>
+      <span class="nav-tag">Monthly Membership</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Done-For-You Content — Every Month</div>
+    <h1>30 days of content.<br><span class="red">Done for you.</span><br><span class="gold">$99/month.</span></h1>
+    <p class="hero-sub">
+      Every month you get <strong>60 reels, 30 carousel concepts, and captions for everything</strong> — written for your niche, scheduled, and ready to post. You just show up.
+    </p>
+
+    <div class="price-hero">
+      <span class="sup">$</span>
+      <span class="amount">99</span>
+      <span class="period">/month</span>
+    </div>
+    <p class="price-note">Billed monthly &nbsp;&bull;&nbsp; Cancel anytime</p>
+
+    <div class="cta-stack">
+      <a href="https://buy.stripe.com/dRm4gz5115AMdi13vcfQI05" class="btn-primary">
+        Start My Content Machine &rarr;
+      </a>
+      <span class="cancel-note">No contracts. No commitment. Cancel in one click.</span>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- WHAT YOU GET -->
+  <section class="section">
+    <p class="section-label">What's Included</p>
+    <h2>A full month of content.<br><span class="gold">Delivered every 30 days.</span></h2>
+
+    <div class="deliverables">
+      <div class="deliverable">
+        <div class="deliverable-num">60</div>
+        <div>
+          <h3>Short-Form Reels</h3>
+          <p>Two per day for 30 days. Hook-first, written for your niche, ready to film or post as text-over-video on Instagram, TikTok, and YouTube Shorts.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-num">30</div>
+        <div>
+          <h3>Carousel Concepts</h3>
+          <p>One per day. Slide-by-slide outlines for educational carousels built to get saved, shared, and followed. Topics mapped to your niche every month.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-num">90</div>
+        <div>
+          <h3>Captions with CTAs</h3>
+          <p>Every single piece comes with a caption — written for engagement with a call-to-action built in. Copy, paste, done.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="scheduling-callout">
+      <div class="scheduling-icon">📅</div>
+      <div>
+        <h3>Scheduled and ready to post</h3>
+        <p>Your full 30-day content calendar gets scheduled so everything is ready to go. You don't have to think about what to post — it's already handled.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <p class="section-label">How It Works</p>
+    <h2>Simple. Every month.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>You subscribe</h3>
+          <p>One click. Billed at $99/month. Cancel anytime — no hoops, no hassle.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>We build your content</h3>
+          <p>60 reels, 30 carousel concepts, 90 captions — all written for your niche. Delivered within 5 business days of your billing date.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>It gets scheduled</h3>
+          <p>Your content calendar goes live. Everything is queued up and ready. You just show up and engage with your audience.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Repeat — automatically</h3>
+          <p>Next month, same thing. Fresh content, same niche, consistent posting. You never start from zero again.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- OBJECTIONS -->
+  <section class="section">
+    <p class="section-label">Questions</p>
+    <h2>Real answers.</h2>
+
+    <div class="objections">
+      <div class="objection">
+        <h3>What if I want to cancel?</h3>
+        <p>Cancel anytime — before your next billing date and you won't be charged again. No emails, no calls, no guilt trip. One click and you're done.</p>
+      </div>
+      <div class="objection">
+        <h3>Is the content actually written for my niche?</h3>
+        <p>Yes. Every month your content is tailored to your audience, your topics, and your voice. This isn't generic filler — it's built for what you do.</p>
+      </div>
+      <div class="objection">
+        <h3>What platforms does this cover?</h3>
+        <p>Instagram Reels, TikTok, and YouTube Shorts for video. Instagram and TikTok for carousels. Captions work across all of them.</p>
+      </div>
+      <div class="objection">
+        <h3>When does my content get delivered?</h3>
+        <p>Within 5 business days of your billing date each month. You'll have everything before the month starts.</p>
+      </div>
+      <div class="objection">
+        <h3>Is $99 really all I pay?</h3>
+        <p>Yes. $99/month, billed monthly. No setup fee, no tiers, no add-ons. Everything listed above is included.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PRICE BLOCK -->
+  <section class="section">
+    <div class="price-block">
+      <p class="price-label">Monthly Membership</p>
+      <div class="price-big">
+        <span class="sup">$</span>
+        <span class="amount">99</span>
+        <span class="period">/month</span>
+      </div>
+      <p class="price-per">Billed monthly &nbsp;&bull;&nbsp; Cancel anytime</p>
+
+      <ul class="price-includes">
+        <li>60 reels (hook + body + CTA)</li>
+        <li>30 carousel concepts (slide-by-slide)</li>
+        <li>90 captions, ready to copy-paste</li>
+        <li>Content scheduled for you</li>
+        <li>Tailored to your niche every month</li>
+        <li>Delivered within 5 business days</li>
+      </ul>
+
+      <div class="cta-stack">
+        <a href="https://buy.stripe.com/dRm4gz5115AMdi13vcfQI05" class="btn-primary large">
+          Start My Content Machine &rarr;
+        </a>
+      </div>
+      <p class="price-cancel">No contracts. Cancel before your next billing date and you'll never be charged again.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="logo">Entre_Steph</p>
+    <p>Questions? Email <a href="mailto:steph@entresteph.com" style="color: var(--gold); text-decoration: none;">steph@entresteph.com</a></p>
+    <br />
+    <p>© 2026 Entre_Steph. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
