@@ -15,8 +15,11 @@ const SMTP = {
   auth: { user: 'steph@entresteph.com', pass: process.env.SMTP_PASS },
 };
 
-const INTAKE_URL  = 'https://forms.gle/We52Wkdsy7ZLMCAY8';
-const MONTHLY_URL = 'https://buy.stripe.com/dRm4gz5115AMdi13vcfQI05';
+const INTAKE_URL    = 'https://forms.gle/We52Wkdsy7ZLMCAY8';
+const MONTHLY_URL   = 'https://buy.stripe.com/dRm4gz5115AMdi13vcfQI05';
+const PDF_URL       = 'https://drive.google.com/file/d/14uP6cE3JhAsDiYFj3WZAqfTPKflfHsnR/view';
+const TRIAL_URL     = 'https://trial.entresteph.com';
+const TRAINING_URL  = 'https://training.entresteph.com';
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -124,6 +127,43 @@ async function sendUpgradeConfirmationEmail(email, name) {
   });
 }
 
+// ── Email 1: training guide delivery ────────────────────────────────────────
+
+async function sendTrainingDeliveryEmail(email, name) {
+  const transporter = nodemailer.createTransport(SMTP);
+  const fn = firstName(name);
+  const greeting = fn ? `Hey ${fn},` : 'Hey,';
+
+  await transporter.sendMail({
+    from: '"Steph | Entre_Steph" <steph@entresteph.com>',
+    to: email,
+    subject: "Here's your 1-Hour Content Machine",
+    text: [
+      greeting, '',
+      "You're in — here's your guide:", '',
+      PDF_URL, '',
+      "Inside you'll find the complete system to create 30+ days of content in under an hour using AI and Canva. I'd start with Step 1 and Step 2 first — those two alone will change how you think about content forever.", '',
+      "The bonus video walkthrough is being recorded now and I'll send you the link the moment it's live. You'll get an email from me as soon as it's ready.", '',
+      "If you have any questions as you work through it, just reply to this email. I read every one.", '',
+      '— Steph', '',
+      `P.S. If at any point you think "I'd rather just have this done for me," that option exists. You can check it out here: ${TRIAL_URL}`,
+    ].join('\n'),
+    html: `
+      <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a;">
+        <p style="font-size:16px;line-height:1.6;">${greeting}</p>
+        <p style="font-size:16px;line-height:1.6;">You're in — here's your guide:</p>
+        <p style="text-align:center;margin:28px 0;">
+          <a href="${PDF_URL}" style="background:#C8230F;color:#ffffff;font-size:16px;font-weight:700;padding:14px 32px;border-radius:6px;text-decoration:none;display:inline-block;">Download Your Guide &rarr;</a>
+        </p>
+        <p style="font-size:16px;line-height:1.6;">Inside you'll find the complete system to create 30+ days of content in under an hour using AI and Canva. I'd start with Step 1 and Step 2 first — those two alone will change how you think about content forever.</p>
+        <p style="font-size:16px;line-height:1.6;">The bonus video walkthrough is being recorded now and I'll send you the link the moment it's live. You'll get an email from me as soon as it's ready.</p>
+        <p style="font-size:16px;line-height:1.6;">If you have any questions as you work through it, just reply to this email. I read every one.</p>
+        <p style="font-size:16px;line-height:1.6;">— Steph</p>
+        <p style="font-size:14px;line-height:1.6;color:#666;">P.S. If at any point you think "I'd rather just have this done for me," that option exists. <a href="${TRIAL_URL}" style="color:#C8230F;">You can check it out here.</a></p>
+      </div>`,
+  });
+}
+
 // ── handler ───────────────────────────────────────────────────────────────────
 
 export default async function handler(req, res) {
@@ -154,6 +194,7 @@ export default async function handler(req, res) {
 
   // Identify product by amount
   const product =
+    amount === 1500 ? '1-Hour Content Machine' :
     amount === 4500 ? '7-Day Trial' :
     amount === 5400 ? 'Content Machine Upgrade' :
     amount === 9900 ? 'Monthly Content Machine' :
@@ -178,7 +219,9 @@ export default async function handler(req, res) {
 
   // Send the right email based on product
   try {
-    if (product === 'Content Machine Upgrade') {
+    if (product === '1-Hour Content Machine') {
+      await sendTrainingDeliveryEmail(email, rawName);
+    } else if (product === 'Content Machine Upgrade') {
       await sendUpgradeConfirmationEmail(email, rawName);
     } else {
       await sendDeliveryEmail(email, rawName);
