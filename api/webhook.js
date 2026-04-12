@@ -21,6 +21,9 @@ const PDF_URL       = 'https://drive.google.com/file/d/14uP6cE3JhAsDiYFj3WZAqfTP
 const TRIAL_URL     = 'https://trial.entresteph.com';
 const TRAINING_URL  = 'https://training.entresteph.com';
 
+const TELEGRAM_BOT_TOKEN = '8133388229:AAGE3m7xsNgPOu7zuWGzjIfN3BjHILQvRlo';
+const TELEGRAM_CHAT_ID   = '6443353867';
+
 // ── helpers ──────────────────────────────────────────────────────────────────
 
 async function tursoQuery(sql, args = []) {
@@ -51,6 +54,24 @@ async function getRawBody(req) {
 
 function firstName(name) {
   return (name || '').split(' ')[0] || '';
+}
+
+// ── Telegram notification ────────────────────────────────────────────────────
+
+async function notifyTelegram(text) {
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text,
+        parse_mode: 'HTML',
+      }),
+    });
+  } catch (err) {
+    console.error('Telegram notify failed:', err.message);
+  }
 }
 
 // ── Email: trial + monthly delivery ─────────────────────────────────────────
@@ -215,6 +236,20 @@ export default async function handler(req, res) {
       { type: 'text',    value: sessionId },
       { type: 'integer', value: String(paidAt) },
     ]
+  );
+
+  // Notify Stephanie on Telegram
+  const emoji =
+    product === '1-Hour Content Machine'    ? '📘' :
+    product === '7-Day Trial'               ? '💰' :
+    product === 'Content Machine Upgrade'   ? '🚀' :
+    product === 'Monthly Content Machine'   ? '🔥' : '💳';
+  const amountStr = `$${(amount / 100).toFixed(2)}`;
+  const buyerName = rawName || email;
+  await notifyTelegram(
+    `${emoji} <b>NEW SALE — Entre_Steph</b>\n\n` +
+    `<b>${buyerName}</b> bought the <b>${product}</b>\n` +
+    `${amountStr} — ${new Date().toLocaleString('en-US', { timeZone: 'America/Phoenix', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })} AZ`
   );
 
   // Send the right email based on product
