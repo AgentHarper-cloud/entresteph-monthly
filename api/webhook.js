@@ -21,7 +21,7 @@ const PDF_URL       = 'https://drive.google.com/file/d/14uP6cE3JhAsDiYFj3WZAqfTP
 const TRIAL_URL     = 'https://trial.entresteph.com';
 const TRAINING_URL  = 'https://training.entresteph.com';
 
-const TELEGRAM_BOT_TOKEN = '8133388229:AAGE3m7xsNgPOu7zuWGzjIfN3BjHILQvRlo';
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID   = '6443353867';
 
 // ── helpers ──────────────────────────────────────────────────────────────────
